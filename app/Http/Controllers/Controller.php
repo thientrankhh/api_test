@@ -10,7 +10,12 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    public function sendResult($message, $data, $httpCode)
+    
+    public function sendResult(
+        string  $message,
+        array   $data, 
+        int     $httpCode
+        )
     {
         return response()->json(
             [
@@ -20,7 +25,12 @@ class Controller extends BaseController
             $httpCode
         );
     }
-    public function sendError(string $message, array $errors, int $httpCode)
+
+    public function sendError(
+        string  $message, 
+        array   $errors, 
+        int     $httpCode
+        )
     {
         return response()->json(
             [
