@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('login', 'LoginController@login')->name('login');
+
+Route::middleware('auth:api','scope:admin')->group(function () {
+    Route::get('user', 'LoginController@details');
+    Route::resource('overtimes', 'OvertimeController');
 });
