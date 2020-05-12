@@ -18,20 +18,17 @@ class LoginController extends Controller
         ])->get('https://www.googleapis.com/oauth2/v1/userinfo');
         $credentials = json_decode($google_response, true);
         
-        if (Arr::has($credentials, 'error'))
-        {
+        if (Arr::has($credentials, 'error')) {
             return $this->sendError('Google authentication failed', $credentials, 401);
         }
 
         $user = User::where('email', $credentials['email'])->first();
         
-        if ($user)
-        {
-            $token = $user->createToken('OverTime',['creator'])->accessToken;
+        if ($user) {
+            $token = $user->createToken('OverTime', ['creator'])->accessToken;
 
             return $this->sendResult('Login successful', compact('token'), Response::HTTP_OK);
-        }
-        else {
+        } else {
             return $this->sendError('Unauthenticated user', [], 401);
         }
     }
