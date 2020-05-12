@@ -1,0 +1,34 @@
+version: '3'
+services:
+  app:
+    image: toancong/phpup
+    depends_on:
+      - db
+    ports:
+      - 13300:80
+    volumes:
+      - .:/var/www/app
+    working_dir: /var/www/app
+    environment:
+      PHP_MEM_LIMIT: -1
+
+  db:
+    image: mysql:5.7
+    volumes:
+      - ./dbdata:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: internship
+      MYSQL_DATABASE: internship
+      MYSQL_USER: internship
+      MYSQL_PASSWORD: internship
+    ports:
+      - 3306:3306
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 13308:80
+    depends_on:
+      - db
+    environment:
+      PMA_HOSTS: db
