@@ -41,8 +41,7 @@ class User extends Authenticatable
     public static function findByEmail(string $email)
     {
         $user = User::where('email', $email)->first();
-        if ($user)
-        {
+        if ($user) {
             return $user;
         }
         return false;
