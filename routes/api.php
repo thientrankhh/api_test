@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', 'LoginController@login')->name('login');
 
 Route::middleware('auth:api','scope:creator')->group(function () {
-    Route::get('user', 'LoginController@details');
     Route::get('logout', 'LoginController@logout');
-    Route::resource('overtimes', 'OvertimeController');
+    
+    Route::get('overtimes', 'OvetimeController@index');
+    Route::post('overtimes', 'OvertimeController@store');
+    Route::put('overtimes/{overtime}', 'OvertimeController@update');
 });
