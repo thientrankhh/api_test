@@ -13,18 +13,18 @@ class UsersTableSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'admin1',
-                'email' => 'admin@gmail.com',
+                'name' => 'Hoang',
+                'email' => 'intern@dienhoa1080.com',
                 'role_id' => 1
             ],
             [
-                'name' => 'thien',
+                'name' => 'Thien',
                 'email' => 'thien@gmail.com',
                 'role_id' => 2
             ],
             [
                 'name' => 'Akos',
-                'email' => 'akos@gmail.com',
+                'email' => 'szabogaliakos@gmail.com',
                 'role_id' => 3
             ],
             [

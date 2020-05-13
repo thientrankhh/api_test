@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 
-class OverTimesTableSeeder extends Seeder
+class OvertimesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,11 +18,12 @@ class OverTimesTableSeeder extends Seeder
         $data = [
             [
                 'creator_id' => '1',
-                'member_id' => '[2,3,4]',
+                'member_ids' => '[2,3,4]',
                 'from' => $from,
                 'to' => $to,
                 'approval_id' => '1',
                 'reason' => 'OT',
+                'status' => 0
             ]
         ];
         DB::table('overtimes')->insert($data);
