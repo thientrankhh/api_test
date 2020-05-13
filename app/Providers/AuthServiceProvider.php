@@ -26,9 +26,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         Passport::tokensCan([
-            'admin' => 'can view all overtimes',
-            'approval' => 'can view pending overtimes',
-            'user' => 'can create overtimes',
+            'view-all' => 'can view all overtimes',
+            'approve' => 'can view pending overtimes and set status of overtimes',
+            'create' => 'can create overtimes',
         ]);
         Passport::routes();
     }

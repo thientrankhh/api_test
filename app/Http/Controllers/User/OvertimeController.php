@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use App\Http\Requests\OvertimeRequest;
 use App\Http\Requests\UpdateStatusRequest;
@@ -8,27 +8,17 @@ use App\Model\Overtime;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
 
 class OvertimeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $overtimes = Overtime::all();
 
         return $this->sendResult(
             'Overtimes',
             compact('overtimes'),
-            Response::HTTP_OK
-        );
-    }
-
-    public function names()
-    {
-        $names = User::select('id', 'name')->get();
-
-        return $this->sendResult(
-            'Selectable names',
-            compact('names'),
             Response::HTTP_OK
         );
     }
@@ -55,6 +45,17 @@ class OvertimeController extends Controller
         return $this->sendResult(
             'Status updated.',
             compact('overtime'),
+            Response::HTTP_OK
+        );
+    }
+
+    public function names()
+    {
+        $names = User::select('id', 'name')->get();
+
+        return $this->sendResult(
+            'Selectable names',
+            compact('names'),
             Response::HTTP_OK
         );
     }

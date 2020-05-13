@@ -13,26 +13,31 @@ class UsersTableSeeder extends Seeder
     {
         $data = [
             [
+                'id' => Uuid::generate()->string,
                 'name' => 'Hoang',
                 'email' => 'intern@dienhoa1080.com',
                 'role_id' => 1
             ],
             [
+                'id' => Uuid::generate()->string,
                 'name' => 'Thien',
                 'email' => 'thien@gmail.com',
                 'role_id' => 2
             ],
             [
+                'id' => Uuid::generate()->string,
                 'name' => 'Akos',
                 'email' => 'szabogaliakos@gmail.com',
-                'role_id' => 3
+                'role_id' => 2
             ],
             [
+                'id' => Uuid::generate()->string,
                 'name' => 'Aoi',
                 'email' => 'aoi@gmail.com',
                 'role_id' => 3
             ],
             [
+                'id' => Uuid::generate()->string,
                 'name' => 'May',
                 'email' => 'may@gmail.com',
                 'role_id' => 3

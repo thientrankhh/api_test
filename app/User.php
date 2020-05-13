@@ -6,10 +6,21 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Support\Facades\DB;
+use App\Model\Overtime;
+use App\Model\Role;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable, Uuids;
+
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
 
     /**
      * The attributes that are mass assignable.
@@ -38,12 +49,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function findByEmail(string $email)
+    public function role()
     {
-        $user = User::where('email', $email)->first();
-        if ($user) {
-            return $user;
-        }
-        return false;
+        return $this->hasOne(Role::class, 'id', 'role_id');
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'uuid';
     }
 }
+

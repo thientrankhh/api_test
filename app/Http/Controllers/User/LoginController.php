@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Arr;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
+use App\Model\Role;
+use App\Http\Controllers\Controller;
+use App\Http\Repository\UserRepository;
 
 class LoginController extends Controller
 {
@@ -27,7 +28,7 @@ class LoginController extends Controller
             );
         }
 
-        $authenticated_user = User::findByEmail($google_credentials['email']);
+        $authenticated_user = UserRepository::findUserByEmail($google_credentials['email']);
         
         if (!$authenticated_user) {
             return $this->sendError(
@@ -37,7 +38,8 @@ class LoginController extends Controller
             );
         }
 
-        $tokenResult = $authenticated_user->createToken('User Access Token', ['creator']);
+        $scopes = json_decode($authenticated_user->role->scopes);
+        $tokenResult = $authenticated_user->createToken('User Access Token', $scopes);
         $token = $tokenResult->token;
         $token->expires_at = Carbon::now()->addYears(1);
         $token->save();
@@ -46,7 +48,10 @@ class LoginController extends Controller
         
         return $this->sendResult(
             'Successful login',
-            compact('access_token'),
+            [
+                'access_token'  =>   $access_token,
+                'token'         =>   $token
+            ],
             Response::HTTP_OK
         );
     }
