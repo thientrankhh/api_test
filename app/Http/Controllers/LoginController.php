@@ -65,9 +65,4 @@ class LoginController extends Controller
             Response::HTTP_ACCEPTED
         );
     }
-    
-    public function details()
-    {
-        return $this->sendResult('User details', auth()->user(), 200);
-    }
 }
