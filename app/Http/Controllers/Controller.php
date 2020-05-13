@@ -13,9 +13,10 @@ class Controller extends BaseController
     
     public function sendResult(
         string  $message,
-        array   $data,
+        array   $data, 
         int     $httpCode
-    ) {
+        )
+    {
         return response()->json(
             [
                 'message' => $message,
@@ -26,10 +27,11 @@ class Controller extends BaseController
     }
 
     public function sendError(
-        string  $message,
-        array   $errors,
+        string  $message, 
+        array   $errors, 
         int     $httpCode
-    ) {
+        )
+    {
         return response()->json(
             [
                 'message' => $message,

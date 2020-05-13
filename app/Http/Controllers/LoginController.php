@@ -20,9 +20,10 @@ class LoginController extends Controller
 
 
         if ($google_response->failed()) {
+            
             return $this->sendError(
-                'Google authentication failed',
-                $google_credentials,
+                'Google authentication failed', 
+                $google_credentials, 
                 Response::HTTP_UNAUTHORIZED
             );
         }
@@ -30,14 +31,16 @@ class LoginController extends Controller
         $authenticated_user = User::findByEmail($google_credentials['email']);
         
         if (!$authenticated_user) {
+            
             return $this->sendError(
-                'Unauthenticated user',
-                [],
+                'Unauthenticated user', 
+                [], 
                 Response::HTTP_UNAUTHORIZED
             );
+
         }
 
-        $tokenResult = $authenticated_user->createToken('User Access Token', ['approval']);
+        $tokenResult = $authenticated_user->createToken('User Access Token', ['creator']);
         $token = $tokenResult->token;
         $token->expires_at = Carbon::now()->addYears(1);
         $token->save();
@@ -45,8 +48,8 @@ class LoginController extends Controller
         $access_token = $tokenResult->accessToken;
         
         return $this->sendResult(
-            'Successful login',
-            compact('access_token'),
+            'Successful login', 
+            compact('access_token'), 
             Response::HTTP_OK
         );
     }
