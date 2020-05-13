@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 
 class OverTimesTableSeeder extends Seeder
 {
@@ -11,13 +12,15 @@ class OverTimesTableSeeder extends Seeder
      */
     public function run()
     {
+        $from = Carbon::now('Asia/Ho_Chi_Minh');
+        $to = Carbon::now('Asia/Ho_Chi_Minh')->addHours(2);
+
         $data = [
             [
                 'creator_id' => '1',
                 'member_id' => '[2,3,4]',
-                'date' => '2020-05-13',
-                'from' => '17:10:02',
-                'to' => '18:10:02',
+                'from' => $from,
+                'to' => $to,
                 'approval_id' => '1',
                 'reason' => 'OT',
             ]

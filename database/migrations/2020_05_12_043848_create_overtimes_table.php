@@ -17,9 +17,8 @@ class CreateOvertimesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('creator_id');
             $table->string('member_id');
-            $table->date('date');
-            $table->time('from')->format('H:i');
-            $table->time('to')->format('H:i');
+            $table->dateTime('from', 0);
+            $table->dateTime('to', 0);	
             $table->unsignedBigInteger('approval_id');
             $table->string('reason');
             $table->foreign('creator_id')->references('id')->on('users');
