@@ -64,4 +64,3 @@ class User extends Authenticatable
         return 'uuid';
     }
 }
-
