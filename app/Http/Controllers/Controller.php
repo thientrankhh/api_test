@@ -19,7 +19,7 @@ class Controller extends BaseController
         return response()->json(
             [
                 'message' => $message,
-                $data
+                'result' => $data
             ],
             $httpCode
         );
@@ -33,7 +33,7 @@ class Controller extends BaseController
         return response()->json(
             [
                 'message' => $message,
-                $errors
+                'error' => $errors
             ],
             $httpCode
         );
