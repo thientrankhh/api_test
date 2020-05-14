@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Repository\UserRepository;
+use App\Http\Repository\OvertimeRepository;
 
 class OvertimeController extends Controller
 {
@@ -40,8 +41,9 @@ class OvertimeController extends Controller
         );
     }
 
-    public function update(UpdateStatusRequest $request, Overtime $overtime)
+    public function update(UpdateStatusRequest $request, $id)
     {
+        $overtime = OvertimeRepository::getOvertime($id);
         $overtime->status = $request->status;
         $overtime->save();
 

@@ -14,11 +14,10 @@ class OvertimesTableSeeder extends Seeder
     {
         $from = Carbon::now('Asia/Ho_Chi_Minh');
         $to = Carbon::now('Asia/Ho_Chi_Minh')->addHours(2);
-        $users = DB::table('users')->get();
 
         $data = [
             [
-                'id' => Uuid::generate()->string,
+                'id' => 'f29b3390-959d-11ea-82d2-95a6c5fa4d4a',
                 'creator_id' => 'ffb4bc90-959b-11ea-8bf4-af7bd9a4141e',
                 'member_ids' => json_encode([
                     'ffb4df00-959b-11ea-b3c0-1d3e15540186',
