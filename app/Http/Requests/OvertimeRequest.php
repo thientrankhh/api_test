@@ -24,10 +24,10 @@ class OvertimeRequest extends FormRequest
     public function rules()
     {
         return [
-            'member_ids' => 'required',
-            'from' => 'required',
-            'to' => 'required',
-            'approval_id' => 'required|',
+            'member_ids.' => 'uuid|exists:users,id',
+            'from' => 'required|date_format:Y-m-d H:i:s',
+            'to' => 'required|date_format:Y-m-d H:i:s',
+            'approval_id' => 'required|uuid|exists:users,id',
             'reason' => 'required'
         ];
     }
