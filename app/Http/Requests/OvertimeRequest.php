@@ -27,7 +27,7 @@ class OvertimeRequest extends FormRequest
             'member_ids' => 'required',
             'from' => 'required',
             'to' => 'required',
-            'approval_id' => 'required',
+            'approval_id' => 'required|',
             'reason' => 'required'
         ];
     }

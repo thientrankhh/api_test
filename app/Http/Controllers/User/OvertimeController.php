@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use App\Http\Repository\UserRepository;
 
 class OvertimeController extends Controller
 {
@@ -51,7 +52,7 @@ class OvertimeController extends Controller
 
     public function names()
     {
-        $names = User::select('id', 'name')->get();
+        $names = UserRepository::getAllNames();
 
         return $this->sendResult(
             'Selectable names',

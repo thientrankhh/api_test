@@ -15,4 +15,9 @@ class UserRepository
         }
         return false;
     }
+
+    public static function getAllNames()
+    {
+        return User::select('id', 'name')->get();
+    }
 }
