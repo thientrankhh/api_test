@@ -14,15 +14,15 @@ class RolesTableSeeder extends Seeder
         $data = [
             [
                 'name' => 'admin',
-                'scopes' => json_encode(['create','approve','view-all'])
+                'scopes' => '["create","approve","view-all"]'
             ],
             [
                 'name' => 'approval',
-                'scopes' => json_encode(['create','approve'])
+                'scopes' => '["create","approve"]'
             ],
             [
                 'name' => 'user',
-                'scopes' => 'create'
+                'scopes' => '["create"]'
             ]
         ];
 

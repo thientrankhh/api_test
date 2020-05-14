@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Api\FormRequestApi;
 
-class OvertimeRequest extends FormRequest
+class OvertimeRequest extends FormRequestApi
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,10 @@ class OvertimeRequest extends FormRequest
      */
     public function rules()
     {
+        //dd($this->input('member_ids'));
         return [
-            'member_ids.' => 'uuid|exists:users,id',
+            'member_ids' => 'required|array',
+            'member_ids.*' => 'uuid|exists:users,id|distinct',
             'from' => 'required|date_format:Y-m-d H:i:s',
             'to' => 'required|date_format:Y-m-d H:i:s',
             'approval_id' => 'required|uuid|exists:users,id',

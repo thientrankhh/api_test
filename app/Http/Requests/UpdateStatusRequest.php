@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Api\FormRequestApi;
 
-class UpdateStatusRequest extends FormRequest
+class UpdateStatusRequest extends FormRequestApi
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class UpdateStatusRequest extends FormRequest
     public function rules()
     {
         return [
-            'status' => 'required'
+            'status' => 'required|numeric'
         ];
     }
 }

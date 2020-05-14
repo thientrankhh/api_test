@@ -7,6 +7,11 @@ use App\User;
 
 class UserRepository
 {
+    public static function getOvertime($id)
+    {
+        return Overtime::find($id);
+    }
+
     public static function findUserByEmail(string $email)
     {
         $user = User::where('email', $email)->first();

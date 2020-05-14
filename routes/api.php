@@ -25,6 +25,6 @@ Route::namespace('User')->group(function () {
 
     Route::middleware(['auth:api', 'scope:approve'])->group(function(){
         Route::get('overtimes', 'OvertimeController@index');
-        Route::put('overtimes/{overtime}', 'OvertimeController@update');
+        Route::put('overtimes/{id}', 'OvertimeController@update');
     });
 });

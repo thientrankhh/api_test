@@ -48,10 +48,7 @@ class LoginController extends Controller
         
         return $this->sendResult(
             'Successful login',
-            [
-                'access_token'  =>   $access_token,
-                'token'         =>   $token
-            ],
+            compact('access_token'),
             Response::HTTP_OK
         );
     }
