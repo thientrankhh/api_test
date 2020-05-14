@@ -14,9 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('login', 'LoginController@login')->name('login');
+Route::namespace('User')->group(function () {
+    Route::post('login', 'LoginController@login')->name('login');
 
-Route::middleware('auth:api','scope:admin')->group(function () {
-    Route::get('user', 'LoginController@details');
-    Route::resource('overtimes', 'OvertimeController');
+    Route::middleware(['auth:api', 'scope:create'])->group(function(){
+        Route::get('logout', 'LoginController@logout');
+        Route::get('names', 'OvertimeController@names');
+        Route::post('overtimes', 'OvertimeController@store');
+    });
+
+    Route::middleware(['auth:api', 'scope:approve'])->group(function(){
+        Route::get('overtimes', 'OvertimeController@index');
+        Route::put('overtimes/{overtime}', 'OvertimeController@update');
+    });
 });

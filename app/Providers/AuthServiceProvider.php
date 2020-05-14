@@ -26,9 +26,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         Passport::tokensCan([
-            'admin' => 'can edit books available',
-            'creator' => 'can add new books',
-            'user' => 'can delete books',
+            'view-all' => 'can view all overtimes',
+            'approve' => 'can view pending overtimes and set status of overtimes',
+            'create' => 'can create overtimes',
         ]);
         Passport::routes();
     }
