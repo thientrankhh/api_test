@@ -63,7 +63,7 @@ class LoginController extends Controller
         
         return $this->sendResult(
             'Logged out',
-            compact('token'),
+            [],
             Response::HTTP_ACCEPTED
         );
     }
