@@ -26,7 +26,9 @@ class OvertimeController extends Controller
 
     public function store(OvertimeRequest $request)
     {
+        $members = json_encode($request->input('member_ids'));
         $overtime = new Overtime($request->all());
+        $overtime->member_ids = $members;
         $overtime->creator_id = auth()->user()->id;
         $overtime->status = 0; // Set status to pending
         $overtime->save();
