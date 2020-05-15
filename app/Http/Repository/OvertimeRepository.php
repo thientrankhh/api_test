@@ -10,4 +10,9 @@ class OvertimeRepository
     {
         return Overtime::find($id);
     }
+
+    public static function pendingOvertimes()
+    {
+        return Overtime::where('approval_id', auth()->user()->approval_id);
+    }
 }

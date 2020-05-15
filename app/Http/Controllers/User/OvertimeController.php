@@ -16,7 +16,7 @@ class OvertimeController extends Controller
 {
     public function index(Request $request)
     {
-        $overtimes = Overtime::all();
+        $overtimes = OvertimeRepository::pendingOvertimes()->paginate(4);
 
         return $this->sendResult(
             'Overtimes',
