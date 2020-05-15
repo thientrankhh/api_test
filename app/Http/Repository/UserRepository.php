@@ -2,14 +2,18 @@
 
 namespace App\Http\Repository;
 
-use Illuminate\Support\Facades\Http;
-use App\Http\Controllers\Controller;
 use App\Model\Overtime;
 use App\User;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Config;
 
 class UserRepository
 {
+    public static function paginate()
+    {
+        return User::paginate(Config::get('pagination.users'));
+    }
+
     public static function getOvertime($id)
     {
         return Overtime::find($id);
@@ -48,19 +52,23 @@ class UserRepository
         return $tokenResult->accessToken;
     }
 
-    public static function toggleStatus(User $user)
+    public static function toggleStatus($id)
     {
+        $user = User::find($id);
         $user->active = !$user->active;
         $user->save();
+        return $user;
     }
 
-    public static function toggleRole(User $user)
+    public static function toggleRole($id)
     {
+        $user = User::find($id);
         if ($user->role_id == 2) {
             $user->role_id = 3;
         } elseif ($user->role_id == 3) {
             $user->role_id = 2;
         }
         $user->save();
+        return $user;
     }
 }

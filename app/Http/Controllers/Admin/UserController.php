@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::paginate(4);
+        $users = UserRepository::paginate();
 
         return $this->sendResult(
             'Users',
@@ -22,8 +22,7 @@ class UserController extends Controller
 
     public function toggleStatus($id)
     {
-        $user = User::find($id);
-        UserRepository::toggleStatus($user);
+        $user = UserRepository::toggleStatus($id);
 
         return $this->sendResult(
             'User\'s status changed',
@@ -34,8 +33,7 @@ class UserController extends Controller
 
     public function toggleRole($id)
     {
-        $user = User::find($id);
-        UserRepository::toggleRole($user);
+        $user = UserRepository::toggleRole($id);
 
         return $this->sendResult(
             'User\'s role changed',

@@ -16,7 +16,7 @@ class OvertimeController extends Controller
 {
     public function index(Request $request)
     {
-        $overtimes = OvertimeRepository::pendingOvertimes()->paginate(4);
+        $overtimes = OvertimeRepository::pendingOvertimes();
 
         return $this->sendResult(
             'Overtimes',
@@ -27,12 +27,7 @@ class OvertimeController extends Controller
 
     public function store(OvertimeRequest $request)
     {
-        $members = json_encode($request->input('member_ids'));
-        $overtime = new Overtime($request->all());
-        $overtime->member_ids = $members;
-        $overtime->creator_id = auth()->user()->id;
-        $overtime->status = 0; // Set status to pending
-        $overtime->save();
+        $overtime = OvertimeRepository::store($request->all());
 
         return $this->sendResult(
             'Overtime was successfully created.',
@@ -43,9 +38,7 @@ class OvertimeController extends Controller
 
     public function update(UpdateStatusRequest $request, $id)
     {
-        $overtime = OvertimeRepository::getOvertime($id);
-        $overtime->status = $request->status;
-        $overtime->save();
+        $overtime = OvertimeRepository::updateStatus($id, $request->status);
 
         return $this->sendResult(
             'Status updated.',
