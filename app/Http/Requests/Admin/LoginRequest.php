@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\Api\FormRequestApi;
 
-class UpdateStatusRequest extends FormRequestApi
+class LoginRequest extends FormRequestApi
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class UpdateStatusRequest extends FormRequestApi
     public function rules()
     {
         return [
-            'status' => 'required|numeric'
+            'email'     => 'required|email',
+            'password'  => 'required'
         ];
     }
 }

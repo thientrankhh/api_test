@@ -14,10 +14,10 @@ class RolesTableSeeder extends Seeder
         $data = [
             [
                 'name' => 'admin',
-                'scopes' => '["create","approve","view-all"]'
+                'scopes' => '["create","approve","admin"]'
             ],
             [
-                'name' => 'approval',
+                'name' => 'approver',
                 'scopes' => '["create","approve"]'
             ],
             [
