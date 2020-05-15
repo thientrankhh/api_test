@@ -42,7 +42,7 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 
         // Users
         Route::get('users', 'UserController@index');
-        Route::put('users/{id}/toggle', 'UserController@toggle');
-        Route::put('users/{id}/set-role', 'UserController@set');
+        Route::put('users/{id}/toggle-status', 'UserController@toggleStatus');
+        Route::put('users/{id}/toggle-role', 'UserController@toggleRole');
     });
 });

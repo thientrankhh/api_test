@@ -20,7 +20,7 @@ class UserController extends Controller
         );
     }
 
-    public function toggle($id)
+    public function toggleStatus($id)
     {
         $user = User::find($id);
         $user->active = !$user->active;
@@ -33,8 +33,24 @@ class UserController extends Controller
         );
     }
 
-    public function changeRole()
+    public function toggleRole($id)
     {
+        $user = User::find($id);
+        if ($user->role_id == 2)
+        {
+            $user->role_id = 3;
+        }
+        else if ($user->role_id == 3)
+        {
+            $user->role_id = 2;
+        }
+        $user->save();
+
+        return $this->sendResult(
+            'User\'s role changed',
+            compact('user'),
+            Response::HTTP_OK
+        );
 
     }
 }

@@ -18,10 +18,4 @@ class UserController extends Controller
             Response::HTTP_OK
         );
     }
-
-    public function toggle($id)
-    {
-        $user = User::find($id);
-        $user
-    }
 }
