@@ -35,7 +35,7 @@ class UserRepository
 
     public static function getAllNames()
     {
-        return User::where('status', 1)->select('id', 'name')->get();
+        return User::where('active', 1)->select('id', 'name')->get();
     }
 
     public static function createToken(User $user)
@@ -47,4 +47,24 @@ class UserRepository
         $token->save();
         return $tokenResult->accessToken;
     }
+
+    public static function toggleStatus(User $user)
+    {
+        $user->active = !$user->active;
+        $user->save();
+    }
+
+    public static function toggleRole(User $user)
+    {
+        if ($user->role_id == 2)
+        {
+            $user->role_id = 3;
+        }
+        else if ($user->role_id == 3)
+        {
+            $user->role_id = 2;
+        }
+        $user->save();
+    }
+
 }

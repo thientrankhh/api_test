@@ -23,8 +23,7 @@ class UserController extends Controller
     public function toggleStatus($id)
     {
         $user = User::find($id);
-        $user->active = !$user->active;
-        $user->save();
+        UserRepository::toggleStatus($user);
 
         return $this->sendResult(
             'User\'s status changed',
@@ -36,15 +35,7 @@ class UserController extends Controller
     public function toggleRole($id)
     {
         $user = User::find($id);
-        if ($user->role_id == 2)
-        {
-            $user->role_id = 3;
-        }
-        else if ($user->role_id == 3)
-        {
-            $user->role_id = 2;
-        }
-        $user->save();
+        UserRepository::toggleRole($user);
 
         return $this->sendResult(
             'User\'s role changed',
