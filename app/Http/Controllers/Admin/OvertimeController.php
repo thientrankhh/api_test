@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\OvertimeRequest;
 use App\Http\Requests\UpdateStatusRequest;
@@ -16,27 +16,11 @@ class OvertimeController extends Controller
 {
     public function index(Request $request)
     {
-        $overtimes = Overtime::all();
+        $overtimes = Overtime::paginate(4);
 
         return $this->sendResult(
             'Overtimes',
             compact('overtimes'),
-            Response::HTTP_OK
-        );
-    }
-
-    public function store(OvertimeRequest $request)
-    {
-        $members = json_encode($request->input('member_ids'));
-        $overtime = new Overtime($request->all());
-        $overtime->member_ids = $members;
-        $overtime->creator_id = auth()->user()->id;
-        $overtime->status = 0; // Set status to pending
-        $overtime->save();
-
-        return $this->sendResult(
-            'Overtime was successfully created.',
-            compact('overtime'),
             Response::HTTP_OK
         );
     }

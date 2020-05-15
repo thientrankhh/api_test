@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
@@ -12,12 +13,6 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $data = [
-            [
-                'id' => 'ffb4bc90-959b-11ea-8bf4-af7bd9a4141e',
-                'name' => 'Hoang',
-                'email' => 'intern@dienhoa1080.com',
-                'role_id' => 1
-            ],
             [
                 'id' => 'ffb4df00-959b-11ea-b3c0-1d3e15540186',
                 'name' => 'Thien',
@@ -44,6 +39,15 @@ class UsersTableSeeder extends Seeder
             ]
         ];
 
+        $admin =  [
+            'id' => 'ffb4bc90-959b-11ea-8bf4-af7bd9a4141e',
+            'name' => 'Hoang',
+            'email' => 'intern@dienhoa1080.com',
+            'password' => Hash::make('abc123!@#'),
+            'role_id' => 1
+        ];
+
         DB::table('users')->insert($data);
+        DB::table('users')->insert($admin);
     }
 }
