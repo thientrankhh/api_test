@@ -2,6 +2,8 @@
 
 namespace App\Http\Repository;
 
+use Illuminate\Support\Facades\Http;
+use App\Http\Controllers\Controller;
 use App\Model\Overtime;
 use App\User;
 use Illuminate\Support\Carbon;
@@ -11,6 +13,15 @@ class UserRepository
     public static function getOvertime($id)
     {
         return Overtime::find($id);
+    }
+
+    public static function checkEmailCompany(string $email)
+    {
+        if (strpos($email, '@dienhoa1080.com') == false) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public static function findUserByEmail(string $email)

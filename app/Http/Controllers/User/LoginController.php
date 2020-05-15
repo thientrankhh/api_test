@@ -10,15 +10,14 @@ use Illuminate\Support\Carbon;
 use App\Model\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Repository\UserRepository;
+use DB;
 
 class LoginController extends Controller
 {
     public function login(Request $request)
     {
-        $google_response = Http::withToken($request->bearerToken())->get('https://www.googleapis.com/oauth2/v1/userinfo');
-        
+        $google_response = Http::withToken($request->bearerToken())->get('https://openidconnect.googleapis.com/v1/userinfo');
         $google_credentials = json_decode($google_response, true);
-
 
         if ($google_response->failed()) {
             return $this->sendError(
@@ -27,14 +26,33 @@ class LoginController extends Controller
                 Response::HTTP_UNAUTHORIZED
             );
         }
-
-        $authenticated_user = UserRepository::findUserByEmail($google_credentials['email']);
-        
-        if (!$authenticated_user) {
+        if (!UserRepository::checkEmailCompany($google_credentials['email'])) {
             return $this->sendError(
-                'Unauthenticated user',
+                'Email must have @dienhoa1080.com',
                 [],
                 Response::HTTP_UNAUTHORIZED
+            );
+        }
+        $authenticated_user = UserRepository::findUserByEmail($google_credentials['email']);
+
+        if (!$authenticated_user) {
+            User::create([
+                'name' => $google_credentials['name'],
+                'email' => $google_credentials['email'],
+            ]);
+            $authenticated_user = UserRepository::findUserByEmail($google_credentials['email']);
+            $scopes = json_decode($authenticated_user->role->scopes);
+            $tokenResult = $authenticated_user->createToken('User Access Token', $scopes);
+            $token = $tokenResult->token;
+            $token->expires_at = Carbon::now()->addYears(1);
+            $token->save();
+
+            $access_token = $tokenResult->accessToken;
+
+            return $this->sendResult(
+                'Successful login',
+                compact('access_token'),
+                Response::HTTP_OK
             );
         }
 
@@ -45,7 +63,7 @@ class LoginController extends Controller
         $token->save();
 
         $access_token = $tokenResult->accessToken;
-        
+
         return $this->sendResult(
             'Successful login',
             compact('access_token'),
@@ -57,7 +75,7 @@ class LoginController extends Controller
     {
         $token = auth()->user()->token();
         $token->revoke();
-        
+
         return $this->sendResult(
             'Logged out',
             [],
