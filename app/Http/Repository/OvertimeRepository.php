@@ -13,6 +13,6 @@ class OvertimeRepository
 
     public static function pendingOvertimes()
     {
-        return Overtime::where('approval_id', auth()->user()->approval_id);
+        return Overtime::where('approver_id', auth()->user()->approver_id);
     }
 }

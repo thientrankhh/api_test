@@ -19,11 +19,11 @@ class CreateOvertimesTable extends Migration
             $table->string('member_ids');
             $table->dateTime('from', 0);
             $table->dateTime('to', 0);
-            $table->uuid('approval_id')->nullable();
+            $table->uuid('approver_id')->nullable();
             $table->string('reason');
             $table->unsignedSmallInteger('status')->default(0)->comment('0 - pending, 1 - accepted, 2 - denied');
             $table->foreign('creator_id')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('approval_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('approver_id')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
         });
     }

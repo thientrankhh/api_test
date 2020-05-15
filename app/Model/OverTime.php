@@ -16,7 +16,7 @@ class Overtime extends Model
      */
     public $incrementing = false;
 
-    protected $fillable = ['creator_id', 'member_ids', 'from', 'to', 'approval_id', 'reason'];
+    protected $fillable = ['creator_id', 'member_ids', 'from', 'to', 'approver_id', 'reason'];
 
     public function user()
     {

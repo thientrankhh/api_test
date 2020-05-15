@@ -26,7 +26,7 @@ class OvertimesTableSeeder extends Seeder
                 ]),
                 'from' => $from,
                 'to' => $to,
-                'approval_id' => 'ffb4df00-959b-11ea-b3c0-1d3e15540186',
+                'approver_id' => 'ffb4df00-959b-11ea-b3c0-1d3e15540186',
                 'reason' => 'Because we all like Nghia.'
             ]
         ];
