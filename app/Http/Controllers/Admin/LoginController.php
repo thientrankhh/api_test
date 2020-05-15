@@ -12,8 +12,7 @@ class LoginController extends Controller
 {
     public function login(LoginRequest $request)
     {
-        if (!Auth::attempt($request->all()))
-        {
+        if (!Auth::attempt($request->all())) {
             return $this->sendError(
                 'Wrong email or password.',
                 [],

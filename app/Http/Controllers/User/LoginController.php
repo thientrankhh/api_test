@@ -6,14 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\User;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
-use App\Model\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Repository\UserRepository;
 use DB;
 
 class LoginController extends Controller
 {
+
     public function login(Request $request)
     {
         $google_response = Http::withToken($request->bearerToken())->get('https://openidconnect.googleapis.com/v1/userinfo');
@@ -34,21 +33,13 @@ class LoginController extends Controller
             );
         }
         $authenticated_user = UserRepository::findUserByEmail($google_credentials['email']);
-
         if (!$authenticated_user) {
             User::create([
                 'name' => $google_credentials['name'],
                 'email' => $google_credentials['email'],
             ]);
             $authenticated_user = UserRepository::findUserByEmail($google_credentials['email']);
-            $scopes = json_decode($authenticated_user->role->scopes);
-            $tokenResult = $authenticated_user->createToken('User Access Token', $scopes);
-            $token = $tokenResult->token;
-            $token->expires_at = Carbon::now()->addYears(1);
-            $token->save();
-
-            $access_token = $tokenResult->accessToken;
-
+            $access_token = UserRepository::createToken($authenticated_user);
             return $this->sendResult(
                 'Successful login',
                 compact('access_token'),
@@ -56,14 +47,7 @@ class LoginController extends Controller
             );
         }
 
-        $scopes = json_decode($authenticated_user->role->scopes);
-        $tokenResult = $authenticated_user->createToken('User Access Token', $scopes);
-        $token = $tokenResult->token;
-        $token->expires_at = Carbon::now()->addYears(1);
-        $token->save();
-
-        $access_token = $tokenResult->accessToken;
-
+        $access_token = UserRepository::createToken($authenticated_user);
         return $this->sendResult(
             'Successful login',
             compact('access_token'),
