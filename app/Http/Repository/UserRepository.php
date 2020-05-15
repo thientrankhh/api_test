@@ -26,7 +26,7 @@ class UserRepository
 
     public static function findUserByEmail(string $email)
     {
-        $user = User::where('status', 1)->where('email', $email)->first();
+        $user = User::where('active', 1)->where('email', $email)->first();
         if ($user) {
             return $user;
         }
