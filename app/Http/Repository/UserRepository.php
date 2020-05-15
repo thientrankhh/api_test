@@ -56,15 +56,11 @@ class UserRepository
 
     public static function toggleRole(User $user)
     {
-        if ($user->role_id == 2)
-        {
+        if ($user->role_id == 2) {
             $user->role_id = 3;
-        }
-        else if ($user->role_id == 3)
-        {
+        } elseif ($user->role_id == 3) {
             $user->role_id = 2;
         }
         $user->save();
     }
-
 }

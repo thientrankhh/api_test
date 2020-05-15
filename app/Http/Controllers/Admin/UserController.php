@@ -42,6 +42,5 @@ class UserController extends Controller
             compact('user'),
             Response::HTTP_OK
         );
-
     }
 }
