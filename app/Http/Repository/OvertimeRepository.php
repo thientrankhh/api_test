@@ -16,7 +16,7 @@ class OvertimeRepository
 
     public static function paginate()
     {
-        $overtimes = Overtime::with('creator','approver')->where('status', 0)
+        $overtimes = Overtime::with('creator', 'approver')->where('status', 0)
             ->paginate(Config::get('pagination.overtimes'));
         foreach ($overtimes as $key => $value) {
             $member_array = json_decode($value->member_ids);

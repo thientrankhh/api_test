@@ -21,12 +21,12 @@ class Overtime extends Model
 
     public function creator()
     {
-        return $this->belongsTo(User::class, 'creator_id')->select('id','name');
+        return $this->belongsTo(User::class, 'creator_id')->select('id', 'name');
     }
 
     public function approver()
     {
-        return $this->belongsTo(User::class, 'approver_id')->select('id','name');
+        return $this->belongsTo(User::class, 'approver_id')->select('id', 'name');
     }
 
     public static function members(array $member_array)
