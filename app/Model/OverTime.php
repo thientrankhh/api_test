@@ -10,7 +10,7 @@ class Overtime extends Model
 {
     use Uuids;
 
-      /**
+    /**
      * Indicates if the IDs are auto-incrementing.
      *
      * @var bool
@@ -21,17 +21,17 @@ class Overtime extends Model
 
     public function creator()
     {
-        return $this->belongsTo(User::class,'creator_id');
+        return $this->belongsTo(User::class, 'creator_id');
     }
 
     public function approver()
     {
-        return $this->belongsTo(User::class,'approver_id');
+        return $this->belongsTo(User::class, 'approver_id');
     }
 
     public static function members(array $member_array)
     {
-        $members = User::query()->whereIn('id',$member_array)->get('name');
+        $members = User::query()->whereIn('id', $member_array)->get('name');
 
         return $members;
     }
