@@ -54,6 +54,7 @@ class UserRepository
         $token = $tokenResult->token;
         $token->expires_at = Carbon::now()->addYears(1);
         $token->save();
+
         return $tokenResult->accessToken;
     }
 

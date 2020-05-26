@@ -54,6 +54,11 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    public function overtimes()
+    {
+        return $this->hasMany(Overtime::class);
+    }
+
     /**
      * Get the route key for the model.
      *

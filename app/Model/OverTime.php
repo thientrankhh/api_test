@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use App\Uuids;
 
@@ -18,9 +19,21 @@ class Overtime extends Model
 
     protected $fillable = ['creator_id', 'member_ids', 'from', 'to', 'approver_id', 'reason'];
 
-    public function user()
+    public function creator()
     {
-        return $this->belongsTo(Overtime::class);
+        return $this->belongsTo(User::class,'creator_id');
+    }
+
+    public function approver()
+    {
+        return $this->belongsTo(User::class,'approver_id');
+    }
+
+    public static function members(array $member_array)
+    {
+        $members = User::query()->whereIn('id',$member_array)->get('name');
+
+        return $members;
     }
 
     /**
