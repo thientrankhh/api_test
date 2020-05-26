@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\User;
 use App\Http\Repository\UserRepository;
 use Illuminate\Http\Response;
 

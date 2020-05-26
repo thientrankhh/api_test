@@ -11,7 +11,12 @@ class UserRepository
 {
     public static function paginate()
     {
-        return User::paginate(Config::get('pagination.users'));
+        $users = User::with('role')->paginate(Config::get('pagination.users'));
+        foreach ($users as $user) {
+            $user->role_id = $user->role->name;
+        }
+
+        return $users;
     }
 
     public static function getOvertime($id)
@@ -57,6 +62,7 @@ class UserRepository
         $user = User::find($id);
         $user->active = !$user->active;
         $user->save();
+
         return $user;
     }
 
@@ -69,6 +75,7 @@ class UserRepository
             $user->role_id = 2;
         }
         $user->save();
+
         return $user;
     }
 }

@@ -19,9 +19,8 @@ class LoginController extends Controller
                 Response::HTTP_BAD_REQUEST
             );
         }
-        
         $access_token = UserRepository::createToken(auth()->user());
-        
+
         return $this->sendResult(
             'Successful login',
             compact('access_token'),
@@ -33,7 +32,7 @@ class LoginController extends Controller
     {
         $token = auth()->user()->token();
         $token->revoke();
-        
+
         return $this->sendResult(
             'Logged out',
             [],

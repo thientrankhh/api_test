@@ -3,18 +3,33 @@
 namespace App\Http\Repository;
 
 use App\Model\Overtime;
+use App\User;
 use Illuminate\Support\Facades\Config;
 
 class OvertimeRepository
 {
     public static function pendingOvertimes()
     {
-        return Overtime::where('approver_id', auth()->user()->approver_id)->paginate(Config::get('pagination.overtimes'));
+        return Overtime::where('approver_id', auth()->user()->approver_id)
+            ->paginate(Config::get('pagination.overtimes'));
     }
 
     public static function paginate()
     {
-        return Overtime::paginate(Config::get('pagination.overtimes'));
+        $overtimes = Overtime::where('status', 0)->paginate(Config::get('pagination.overtimes'));
+        foreach ($overtimes as $key => $value) {
+            $members = array();
+            $member_array = json_decode($value->member_ids);
+            for ($i = 0; $i < count($member_array); $i++) {
+                $members[] = User::where('id', $member_array[$i])->first()->name;
+            }
+            $value->member_ids = $members;
+            $value->creator_id = User::where('id', $value->creator_id)->first()->name;
+            $value->approver_id = User::where('id', $value->approver_id)->first()->name;
+            $value->hour = (strtotime($value->to) - strtotime($value->from)) / 3600;
+        }
+
+        return $overtimes;
     }
 
     public static function store($parameters)
@@ -25,6 +40,7 @@ class OvertimeRepository
         $overtime->creator_id = auth()->user()->id;
         $overtime->status = 0; // Set status to pending
         $overtime->save();
+
         return $overtime;
     }
 
@@ -33,6 +49,7 @@ class OvertimeRepository
         $overtime = Overtime::find($id);
         $overtime->status = $status;
         $overtime->save();
+
         return $overtime;
     }
 }
