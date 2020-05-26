@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use App\Uuids;
 
@@ -9,7 +10,7 @@ class Overtime extends Model
 {
     use Uuids;
 
-      /**
+    /**
      * Indicates if the IDs are auto-incrementing.
      *
      * @var bool
@@ -18,9 +19,21 @@ class Overtime extends Model
 
     protected $fillable = ['creator_id', 'member_ids', 'from', 'to', 'approver_id', 'reason'];
 
-    public function user()
+    public function creator()
     {
-        return $this->belongsTo(Overtime::class);
+        return $this->belongsTo(User::class, 'creator_id')->select('id', 'name');
+    }
+
+    public function approver()
+    {
+        return $this->belongsTo(User::class, 'approver_id')->select('id', 'name');
+    }
+
+    public static function members(array $member_array)
+    {
+        $members = User::query()->whereIn('id', $member_array)->get('name');
+
+        return $members;
     }
 
     /**

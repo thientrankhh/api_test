@@ -24,8 +24,8 @@ class LoginRequest extends FormRequestApi
     public function rules()
     {
         return [
-            'email'     => 'required|email',
-            'password'  => 'required'
+            'email'     => 'required|email|min:6|max:100',
+            'password'  => 'required|min:3|max:100'
         ];
     }
 }
