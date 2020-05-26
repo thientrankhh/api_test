@@ -16,13 +16,11 @@ class OvertimeRepository
 
     public static function paginate()
     {
-        $overtimes = Overtime::with('creator')->with('approver')->where('status', 0)
+        $overtimes = Overtime::with('creator','approver')->where('status', 0)
             ->paginate(Config::get('pagination.overtimes'));
         foreach ($overtimes as $key => $value) {
             $member_array = json_decode($value->member_ids);
             $value->member_ids = $value->members($member_array);
-            $value->creator_id = $value->creator->name;
-            $value->approver_id = $value->approver->name;
             $value->hour = (strtotime($value->to) - strtotime($value->from)) / 3600;
         }
 
