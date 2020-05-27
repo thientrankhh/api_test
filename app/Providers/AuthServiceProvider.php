@@ -31,5 +31,6 @@ class AuthServiceProvider extends ServiceProvider
             'create' => 'can create overtimes',
         ]);
         Passport::routes();
+        Passport::enableImplicitGrant();
     }
 }

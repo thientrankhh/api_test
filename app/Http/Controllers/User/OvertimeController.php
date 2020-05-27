@@ -4,19 +4,27 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Requests\OvertimeRequest;
 use App\Http\Requests\UpdateStatusRequest;
-use App\Model\Overtime;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
-use App\Http\Repository\UserRepository;
 use App\Http\Repository\OvertimeRepository;
 
 class OvertimeController extends Controller
 {
     public function index(Request $request)
     {
-        $overtimes = OvertimeRepository::pendingOvertimes();
+        $overtimes = OvertimeRepository::pendingOverTimes();
+
+        return $this->sendResult(
+            'List All OverTimes pendding',
+            compact('overtimes'),
+            Response::HTTP_OK
+        );
+    }
+
+    public function listApprove(Request $request)
+    {
+        $overtimes = OvertimeRepository::listApprove();
 
         return $this->sendResult(
             'Overtimes',
