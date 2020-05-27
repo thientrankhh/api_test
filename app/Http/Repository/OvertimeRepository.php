@@ -3,15 +3,33 @@
 namespace App\Http\Repository;
 
 use App\Model\Overtime;
-use App\User;
 use Illuminate\Support\Facades\Config;
 
 class OvertimeRepository
 {
-    public static function pendingOvertimes()
+    public static function pendingOverTimes()
     {
-        return Overtime::where('approver_id', auth()->user()->approver_id)
-            ->paginate(Config::get('pagination.overtimes'));
+        $overtimes = Overtime::with('creator', 'approver')->where('status', 0)->get();
+        foreach ($overtimes as $key => $value) {
+            $member_array = json_decode($value->member_ids);
+            $value->member_ids = $value->members($member_array);
+            $value->hour = (strtotime($value->to) - strtotime($value->from)) / 3600;
+        }
+
+        return $overtimes;
+    }
+
+    public static function listApprove()
+    {
+        $overtimes = Overtime::with('creator', 'approver')
+            ->where('approver_id', auth()->user()->id)->get();
+        foreach ($overtimes as $key => $value) {
+            $member_array = json_decode($value->member_ids);
+            $value->member_ids = $value->members($member_array);
+            $value->hour = (strtotime($value->to) - strtotime($value->from)) / 3600;
+        }
+
+        return $overtimes;
     }
 
     public static function paginate()
@@ -43,6 +61,7 @@ class OvertimeRepository
     {
         $overtime = Overtime::find($id);
         $overtime->status = $status;
+        $overtime->approver_id = auth()->user()->id;
         $overtime->save();
 
         return $overtime;

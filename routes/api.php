@@ -21,10 +21,11 @@ Route::namespace('User')->group(function () {
     Route::middleware(['auth:api', 'scope:create'])->group(function () {
         Route::get('logout', 'LoginController@logout');
         Route::get('users', 'UserController@index');
-        Route::post('overtimes', 'OvertimeController@store');
+        Route::post('store', 'OvertimeController@store');
     });
     Route::middleware(['auth:api', 'scope:approve'])->group(function () {
         Route::get('overtimes', 'OvertimeController@index');
+        Route::get('approve', 'OvertimeController@listApprove');
         Route::put('overtimes/{id}', 'OvertimeController@update');
     });
 });
