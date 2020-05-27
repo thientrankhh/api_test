@@ -36,7 +36,9 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
         Route::get('logout', 'LoginController@logout');
 
         // Overtimes
-        Route::get('overtimes', 'OvertimeController@index');
+        Route::get('pending', 'OvertimeController@index');
+        Route::get('accepted', 'OvertimeController@listApproved');
+        Route::get('denited', 'OvertimeController@listDenited');
         Route::post('overtimes', 'OvertimeController@store');
         Route::put('overtimes/{id}', 'OvertimeController@update');
 

@@ -10,6 +10,7 @@ class OvertimeRepository
     public static function pendingOverTimes()
     {
         $overtimes = Overtime::with('creator', 'approver')->where('status', 0)->get();
+
         foreach ($overtimes as $key => $value) {
             $member_array = json_decode($value->member_ids);
             $value->member_ids = $value->members($member_array);
@@ -23,6 +24,7 @@ class OvertimeRepository
     {
         $overtimes = Overtime::with('creator', 'approver')
             ->where('approver_id', auth()->user()->id)->get();
+
         foreach ($overtimes as $key => $value) {
             $member_array = json_decode($value->member_ids);
             $value->member_ids = $value->members($member_array);
@@ -32,10 +34,11 @@ class OvertimeRepository
         return $overtimes;
     }
 
-    public static function paginate()
+    public static function paginate($status)
     {
-        $overtimes = Overtime::with('creator', 'approver')->where('status', 0)
+        $overtimes = Overtime::with('creator', 'approver')->where('status', $status)
             ->paginate(Config::get('pagination.overtimes'));
+
         foreach ($overtimes as $key => $value) {
             $member_array = json_decode($value->member_ids);
             $value->member_ids = $value->members($member_array);
@@ -60,6 +63,7 @@ class OvertimeRepository
     public static function updateStatus($id, $status)
     {
         $overtime = Overtime::find($id);
+
         $overtime->status = $status;
         $overtime->approver_id = auth()->user()->id;
         $overtime->save();

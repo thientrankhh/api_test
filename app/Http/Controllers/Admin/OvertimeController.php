@@ -13,10 +13,32 @@ class OvertimeController extends Controller
 {
     public function index()
     {
-        $overtimes = OvertimeRepository::paginate();
+        $overtimes = OvertimeRepository::paginate(Config::get('statusOverTimes.pending'));
 
         return $this->sendResult(
-            'Overtimes',
+            'List OverTimes Pending',
+            compact('overtimes'),
+            Response::HTTP_OK
+        );
+    }
+
+    public function listApproved()
+    {
+        $overtimes = OvertimeRepository::paginate(Config::get('statusOverTimes.accepted'));
+
+        return $this->sendResult(
+            'List Overtimes Approved',
+            compact('overtimes'),
+            Response::HTTP_OK
+        );
+    }
+
+    public function listDenited()
+    {
+        $overtimes = OvertimeRepository::paginate(Config::get('statusOverTimes.denited'));
+
+        return $this->sendResult(
+            'List Overtimes Denited',
             compact('overtimes'),
             Response::HTTP_OK
         );
