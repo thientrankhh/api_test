@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\UpdateStatusRequest;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Repository\OvertimeRepository;
@@ -11,34 +12,12 @@ use Illuminate\Support\Facades\Config;
 
 class OvertimeController extends Controller
 {
-    public function index()
+    public function index(Request $request, $status)
     {
-        $overtimes = OvertimeRepository::paginate(Config::get('statusOverTimes.pending'));
+        $overtimes = OvertimeRepository::paginate($status);
 
         return $this->sendResult(
-            'List OverTimes Pending',
-            compact('overtimes'),
-            Response::HTTP_OK
-        );
-    }
-
-    public function listApproved()
-    {
-        $overtimes = OvertimeRepository::paginate(Config::get('statusOverTimes.accepted'));
-
-        return $this->sendResult(
-            'List Overtimes Approved',
-            compact('overtimes'),
-            Response::HTTP_OK
-        );
-    }
-
-    public function listDenited()
-    {
-        $overtimes = OvertimeRepository::paginate(Config::get('statusOverTimes.denited'));
-
-        return $this->sendResult(
-            'List Overtimes Denited',
+            'List OverTimes',
             compact('overtimes'),
             Response::HTTP_OK
         );

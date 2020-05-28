@@ -31,7 +31,7 @@ class LoginController extends Controller
     public function logout()
     {
         $token = auth()->user()->token();
-        $token->revoke();
+        dd($token->revoke());
 
         return $this->sendResult(
             'Logged out',
