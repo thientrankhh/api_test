@@ -31,12 +31,3 @@ jobs:
 
       # run tests
       - run: ./vendor/bin/phpcs -n --standard=phpcs.xml
-workflows:
-  version: 2
-
-  build_and_deploy:
-    jobs:
-      - build:
-          filters:
-            branches:
-              only: dev-be
