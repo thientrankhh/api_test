@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\UpdateStatusRequest;
-use App\Mail\SendMailToCreator;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Repository\OvertimeRepository;
-use Illuminate\Support\Facades\Config;
+use App\Http\Requests\UpdateStatusRequest;
+use App\Mail\SendMailToCreator;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Mail;
 
 class OvertimeController extends Controller

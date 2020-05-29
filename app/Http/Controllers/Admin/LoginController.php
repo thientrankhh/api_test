@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Repository\UserRepository;
 use App\Http\Requests\Admin\LoginRequest;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller

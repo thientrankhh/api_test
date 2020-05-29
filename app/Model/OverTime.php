@@ -3,8 +3,8 @@
 namespace App\Model;
 
 use App\User;
-use Illuminate\Database\Eloquent\Model;
 use App\Uuids;
+use Illuminate\Database\Eloquent\Model;
 
 class Overtime extends Model
 {
