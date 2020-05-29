@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Repository\UserRepository;
 use App\Http\Requests\Admin\LoginRequest;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -31,7 +31,6 @@ class LoginController extends Controller
     public function logout()
     {
         $token = auth()->user()->token();
-        $token->revoke();
 
         return $this->sendResult(
             'Logged out',

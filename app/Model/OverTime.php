@@ -3,8 +3,8 @@
 namespace App\Model;
 
 use App\User;
-use Illuminate\Database\Eloquent\Model;
 use App\Uuids;
+use Illuminate\Database\Eloquent\Model;
 
 class Overtime extends Model
 {
@@ -21,7 +21,7 @@ class Overtime extends Model
 
     public function creator()
     {
-        return $this->belongsTo(User::class, 'creator_id')->select('id', 'name');
+        return $this->belongsTo(User::class, 'creator_id')->select('id', 'name', 'email');
     }
 
     public function approver()
