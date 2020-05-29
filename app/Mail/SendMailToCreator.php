@@ -34,11 +34,11 @@ class SendMailToCreator extends Mailable
                 'overtime' => $this->overtime,
                 'statusApprove' => 'denied'
             ]);
-        } else {
-            return $this->subject('Request OT Denied')->view('mail.sendMailToCreator')->with([
-                'overtime' => $this->overtime,
-                'statusApprove' => 'accepted'
-            ]);
         }
+
+        return $this->subject('Request OT Denied')->view('mail.sendMailToCreator')->with([
+            'overtime' => $this->overtime,
+            'statusApprove' => 'accepted'
+        ]);
     }
 }
