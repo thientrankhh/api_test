@@ -21,7 +21,7 @@ class Overtime extends Model
 
     public function creator()
     {
-        return $this->belongsTo(User::class, 'creator_id')->select('id', 'name');
+        return $this->belongsTo(User::class, 'creator_id')->select('id', 'name', 'email');
     }
 
     public function approver()
