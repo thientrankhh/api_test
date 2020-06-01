@@ -31,3 +31,25 @@ jobs:
 
       # run tests
       - run: ./vendor/bin/phpcs -n --standard=phpcs.xml
+      deploy:
+        machine:
+          enabled: true
+        steps:
+          - add_ssh_keys:
+              fingerprints:
+                - ...
+          - run:
+              name: Deploy Over SSH
+              command: ssh thien@35.201.164.52 
+    
+    workflows:
+      version: 2
+      build-and-deploy:
+        jobs:
+          - build
+          - deploy:
+              requires:
+                - build
+              filters:
+                branches:
+                  ...
